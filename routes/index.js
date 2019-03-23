@@ -2,6 +2,8 @@
 
 const express = require("express")
 const productCtrl = require("../controllers/product")
+const isAuth = require("../middlewares/auth")
+
 const api = express.Router()
 
 //Metodo GET 2048 caracteres
@@ -15,5 +17,10 @@ api.post("/product",productCtrl.saveProduct)
 api.put("/product/:productId",productCtrl.updateProduct)
 //Eliminar un producto
 api.delete("/product/:productId",productCtrl.deleteProduct)
+
+//privado
+api.get("/private",isAuth,(req,res)=>{
+  res.status(200).send({message:"tienes acceso!"})
+})
 
 module.exports = api
