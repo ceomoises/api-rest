@@ -9,9 +9,9 @@ const api = express.Router()
 
 //Metodo GET 2048 caracteres
 //Todos los productos
-api.get("/product", productCtrl.getProducts)
+api.get("/product",isAuth, productCtrl.getProducts)
 //Un solo producto
-api.get("/product/:productId",productCtrl.getProduct)
+api.get("/product/:productId",isAuth,productCtrl.getProduct)
 //Subir un nuevo producto
 api.post("/product",isAuth,productCtrl.saveProduct)
 //Actualizar un producto

@@ -1,0 +1,32 @@
+<form id="login" method="post">
+  <input id="email" type="email" name="email" placeholder="tu correo"> <br><br>
+  <input id="password" type="password" name="password" placeholder="tu contraseña"><br><br>
+  <input type="submit" value="Login">
+</form>
+
+<script type="text/javascript">
+  const formLogin = document.querySelector("#login")
+
+  formLogin.addEventListener("submit",event=>{
+    event.preventDefault()
+    const email = document.getElementById("email").value
+    const password = document.getElementById("password").value
+
+    const params = new URLSearchParams()
+    params.set("email",email)
+    params.set("password",password)
+
+    fetch("/api/signin",{
+      method:"POST",
+      body: params,
+      headers:{"Content-Type":"application/x-www-form-urlencoded"}
+    })
+    .then(res => res.json())
+    .then(data => {
+      console.log("Token generado correctamente !")
+      localStorage.setItem("token",data.token)
+    })
+    .catch(res => console.log("Ocurrio un error : "+ res.message))
+  })
+
+</script>
