@@ -6,7 +6,7 @@ const bcrypt = require("bcrypt-nodejs")
 const crypto = require("crypto")
 
 const UserSchema = new Schema({
-  email: { type: String, unique:true, lowercase:true},
+  email: { type: String, lowercase:true},
   displayName: String,
   avatar: String,
   password: String,
@@ -33,17 +33,11 @@ UserSchema.methods.gravatar = function(){
   return `https://gravatar.com/avatar/${md5}?s=200&d=retro`
 }
 
-UserSchema.methos.comparePassword = function(candidatePassword,cb){
+UserSchema.methods.comparePassword = function(candidatePassword,cb){
   bcrypt.compare(candidatePassword,this.password,(err,isMatch)=>{
     cb(err,isMatch)
   })
-
-})
-
-
-
-
-
+}
 
 
 module.exports = mongoose.model("User",UserSchema)

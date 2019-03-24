@@ -3,7 +3,7 @@
 const services = require("../services")
 
 function isAuth(req,res,next){
-  if(req.headers.authorization){
+  if(typeof req.headers.authorization !== "string"){
     return res.status(403).send({message:"no tienes autorización"})
   }
   const token = req.headers.authorization.split(" ")[1]

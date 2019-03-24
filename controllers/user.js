@@ -11,17 +11,18 @@ function signUp(req,res){
     password: req.body.password
   })
   //Debemos invocar antes a gravatar
-  user.avatar = user.gravatar();
+  user.avatar = user.gravatar()
 
   user.save((err)=>{
     if(err)res.status(500).send({message:`Erro al crear el usuario: ${err}`})
     return res.status(200).send({token: service.createToken(user) })
   })
 }
+
 function signIn(req,res){
   //Comenzamos a usar findOne
   User.findOne({email:req.body.email},(err,user)=>{
-    if(err)return res.status(500).send(message:err)
+    if(err)return res.status(500).send({message:err})
     if(!user)return res.status(404).send({message:"no existe el usuario"})
 
     user.comparePassword(req.body.password,(err,isMatch)=>{
