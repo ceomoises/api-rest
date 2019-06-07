@@ -23,7 +23,7 @@
     })
     .then(res => res.json())
     .then(data => {
-      console.log("Token generado correctamente !")
+      //console.log("Token generado correctamente !")
       localStorage.setItem("token",data.token)
     })
     .catch(res => console.log("Ocurrio un error : "+ res.message))

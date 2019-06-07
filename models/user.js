@@ -13,6 +13,7 @@ const UserSchema = new Schema({
   signupDate:{type:Date,default: Date.now()},
   lastLogin: Date
 })
+
 UserSchema.pre("save",function(next){
   let user = this
   if(!user.isModified("password"))return next()
@@ -25,10 +26,11 @@ UserSchema.pre("save",function(next){
     })
   })
 })
+
 UserSchema.methods.gravatar = function(){
-  //Si no tiene un avatar
+  //Si no tiene un avatar ...
   if(!this.email) return `https://gravatar.com/avatar/?s=200&d=retro`
-  //Si tiene un avatar
+  //Si tiene un avatar ...
   const md5 = crypto.createHash("md5").update(this.email).digest("hex")
   return `https://gravatar.com/avatar/${md5}?s=200&d=retro`
 }
@@ -38,6 +40,5 @@ UserSchema.methods.comparePassword = function(candidatePassword,cb){
     cb(err,isMatch)
   })
 }
-
 
 module.exports = mongoose.model("User",UserSchema)
